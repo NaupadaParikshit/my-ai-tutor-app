@@ -138,9 +138,18 @@ with st.sidebar:
     st.markdown("- Ask for a quiz from PDF")
 
 # Main area
-st.markdown('<div class="main-title">👨‍🏫 AI Tutor</div>', unsafe_allow_html=True)
-st.markdown('<div class="subtitle">Your personal AI teacher — upload notes & ask anything!</div>',
-            unsafe_allow_html=True)
+st.markdown('<div class="main-title">🎓 ParikshaAI</div>', unsafe_allow_html=True)
+st.markdown('<div class="subtitle">Your Smart AI Tutor by Parikshit — upload notes & ask anything!</div>', unsafe_allow_html=True)
+
+# Subject selector visible on main page for mobile
+col1, col2, col3 = st.columns([1,2,1])
+with col2:
+    subject = st.selectbox(
+        "📚 Choose a Subject",
+        ["General", "Mathematics", "Science", "History",
+         "Languages", "Programming", "Geography"],
+        key="main_subject"
+    )
 
 # Welcome message
 if len(st.session_state.chat_history) == 0:
