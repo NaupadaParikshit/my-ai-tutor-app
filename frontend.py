@@ -150,6 +150,24 @@ if len(st.session_state.chat_history) == 0:
         else:
             st.markdown(f"👋 Hello! I'm your **AI Tutor** for **{subject}**! Upload a PDF or ask me anything!")
 
+            # PDF upload on main page (visible on mobile too!)
+if not st.session_state.pdf_text:
+    st.markdown("### 📄 Upload Your Study Notes")
+    main_pdf = st.file_uploader(
+        "Upload a PDF file here 👇",
+        type=["pdf"],
+        key="main_uploader",
+        help="Upload your notes and ask questions!"
+    )
+    if main_pdf:
+        with st.spinner("📖 Reading your PDF..."):
+            st.session_state.pdf_text = extract_pdf_text(main_pdf)
+            st.session_state.pdf_name = main_pdf.name
+        st.success(f"✅ **{main_pdf.name}** uploaded! Now ask me anything about it!")
+        st.rerun()
+else:
+    st.info(f"📄 Currently loaded: **{st.session_state.pdf_name}**")
+
 # Display chat history
 for message in st.session_state.chat_history:
     if message["role"] == "user":
